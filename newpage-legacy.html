@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Order - EasyBuy</title>
+    <!-- CSS Dependencies -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom Track Order Specific Styles aligned with EasyBuy Theme */
+        .track-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 15px;
+        }
+
+        .track-card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .track-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .track-header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .track-header p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        .track-form {
+            display: flex;
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .track-form .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .track-form input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .track-form input:focus {
+            border-color: #2874f0;
+        }
+
+        .btn-track {
+            background-color: #2874f0;
+            color: #ffffff;
+            border: none;
+            padding: 12px 25px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-track:hover {
+            background-color: #1259cc;
+        }
+
+        /* Order Status Timeline */
+        .status-timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 40px 0 20px;
+        }
+
+        .status-timeline::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 5%;
+            width: 90%;
+            height: 4px;
+            background-color: #e0e0e0;
+            z-index: 1;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 5%;
+            height: 4px;
+            background-color: #2874f0;
+            z-index: 1;
+            width: 66%;
+            /* Dynamic based on status: 0%, 33%, 66%, 100% */
+            transition: width 0.4s ease;
+        }
+
+        .step-item {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            background: #ffffff;
+            padding: 0 10px;
+            flex: 1;
+        }
+
+        .step-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            color: #777;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .step-item.active .step-icon {
+            background-color: #2874f0;
+            color: #ffffff;
+            box-shadow: 0 0 0 5px rgba(40, 116, 240, 0.2);
+        }
+
+        .step-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .step-date {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        /* Order Item Details */
+        .order-summary-box {
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            margin-top: 30px;
+        }
+
+        .order-meta-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .meta-item {
+            font-size: 14px;
+        }
+
+        .meta-item span {
+            color: #777;
+            display: block;
+            font-size: 12px;
+        }
+
+        .meta-item strong {
+            color: #222;
+        }
+
+        @media (max-width: 600px) {
+            .status-timeline {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .status-timeline::before,
+            .progress-line {
+                display: none;
+            }
+
+            .step-item {
+                display: flex;
+                align-items: center;
+                text-align: left;
+                gap: 15px;
+            }
+
+            .step-icon {
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-graduation-cap"></i> Easy<span>Buy</span>
+            </a>
+
+            <div class="search-bar">
+                <input type="text" placeholder="Search for books, electronics, stationery...">
+                <button><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+
+            <nav class="nav-links">
+                <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="shop.html"><i class="fa-solid fa-store"></i> Shop</a>
+                <a href="categories.html"><i class="fa-solid fa-list"></i> Categories</a>
+                <a href="orders.html"><i class="fa-solid fa-box"></i> My Orders</a>
+                <a href="cart.html" class="cart-icon"><i class="fa-solid fa-cart-shopping"></i> <span
+                        id="cart-count">0</span></a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="track-container">
+
+        <!-- Search/Lookup Form -->
+        <div class="track-card">
+            <div class="track-header">
+                <h1>Track Your Package</h1>
+                <p>Enter your EasyBuy Order ID and Email Address to check delivery progress.</p>
+            </div>
+
+            <form class="track-form" onsubmit="event.preventDefault(); trackOrder();">
+                <div class="form-group">
+                    <input type="text" id="orderId" placeholder="Order ID (e.g., EB-84920)" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="userEmail" placeholder="Email Address" required>
+                </div>
+                <button type="submit" class="btn-track"><i class="fa-solid fa-location-dot"></i> Track</button>
+            </form>
+        </div>
+
+        <!-- Tracking Results Display Card -->
+        <div class="track-card" id="trackingResult">
+            <div class="order-meta-info">
+                <div class="meta-item">
+                    <span>Order Number</span>
+                    <strong>#EB-84920</strong>
+                </div>
+                <div class="meta-item">
+                    <span>Estimated Delivery</span>
+                    <strong>October 15, 2026</strong>
+                </div>
+                <div class="meta-item">
+                    <span>Carrier</span>
+                    <strong>EasyBuy Campus Express</strong>
+                </div>
+                <div class="meta-item">
+                    <span>Shipping Status</span>
+                    <strong style="color: #2874f0;">Out for Delivery</strong>
+                </div>
+            </div>
+
+            <!-- Status Timeline -->
+            <div class="status-timeline">
+                <div class="progress-line" id="progressLine"></div>
+
+                <div class="step-item active">
+                    <div class="step-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                    <div class="step-label">Order Placed</div>
+                    <div class="step-date">Oct 10, 09:30 AM</div>
+                </div>
+
+                <div class="step-item active">
+                    <div class="step-icon"><i class="fa-solid fa-box-open"></i></div>
+                    <div class="step-label">Packed</div>
+                    <div class="step-date">Oct 11, 02:15 PM</div>
+                </div>
+
+                <div class="step-item active">
+                    <div class="step-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                    <div class="step-label">In Transit</div>
+                    <div class="step-date">Oct 12, 08:00 AM</div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-icon"><i class="fa-solid fa-house-circle-check"></i></div>
+                    <div class="step-label">Delivered</div>
+                    <div class="step-date">Pending</div>
+                </div>
+            </div>
+
+            <!-- Package Details -->
+            <div class="order-summary-box">
+                <h3>Package Details</h3>
+                <p style="margin-top: 10px; color: #555; font-size: 14px;">
+                    <i class="fa-solid fa-location-dot" style="color: #2874f0;"></i>
+                    <strong>Current Location:</strong> Regional Sorting Center — En route to Campus Hub
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 EasyBuy Marketplace. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="deals.html">Deals</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="../js/app.js"></script>
+    <script>
+        function trackOrder() {
+            const orderId = document.getElementById('orderId').value;
+            if (orderId) {
+                // Show result box smoothly
+                document.getElementById('trackingResult').style.display = 'block';
+                // Scroll into view
+                document.getElementById('trackingResult').scrollIntoView({behavior: 'smooth'});
+            }
+        }
+    </script>
+</body>
+
+</html>
