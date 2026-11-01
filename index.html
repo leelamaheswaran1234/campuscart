@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#111827">
+    <meta name="description" content="EasyBuy — a student-to-student campus marketplace for affordable textbooks, tech and everyday essentials.">
+    <title>EasyBuy | Campus Marketplace</title>
+    <link rel="icon" type="image/jpeg" href="images/images.jpg">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/modern.css">
+    <link rel="stylesheet" href="css/pro-enhancements.css">
+    <link rel="stylesheet" href="css/navigation-upgrade.css">
+</head>
+
+<body>
+    <div class="loading-screen" id="loading">
+        <div>
+            <div class="eb-loader-scene" aria-label="EasyBuy is loading">
+                <div class="eb-loader-moon"></div>
+                <div class="eb-loader-flower">✿</div>
+                <div class="eb-loader-track"><span class="eb-running-basket">🛒</span></div>
+            </div>
+            <div class="loader-label" id="loaderLabel">EASYBUY · LOADING YOUR CAMPUS</div>
+        </div>
+    </div>
+    <div class="topline">🎓 Student-to-student marketplace · Save more, waste less · Meet safely on campus</div>
+    <header class="navbar">
+        <div class="wrap navinner">
+            <a class="logo" href="#home">Easy<b>buy.</b></a>
+            <button class="eb-menu-toggle" id="ebMenuToggle" type="button" aria-expanded="false" aria-controls="ebNavPanel" aria-label="Open navigation menu">☰</button>
+            <nav class="navlinks" id="ebNavPanel" aria-label="Main navigation">
+                <a href="#home" data-public-nav>Home</a>
+                <a href="#shop" data-public-nav>Shop</a>
+                <a href="#discover" data-public-nav>Discover</a>
+                <div class="eb-nav-group">
+                    <button type="button" class="eb-nav-parent" aria-expanded="false" data-menu-parent="categories">Categories⌄</button>
+                    <div class="eb-nav-submenu" data-menu="categories">
+                        <a href="#shop?category=Books">Books</a><a href="#shop?category=Stationery%20Kits">Stationery Kits</a>
+                        <a href="#shop?category=Electronics">Electronics</a><a href="#shop?category=Accessories">Accessories</a>
+                        <a href="#shop?category=College%20Essentials">College Essentials</a><a href="#shop?category=Lab%20Equipment">Lab Equipment</a>
+                    </div>
+                </div>
+                <div class="eb-nav-group" data-auth-only hidden>
+                    <button type="button" class="eb-nav-parent" aria-expanded="false" data-menu-parent="sell">Sell⌄</button>
+                    <div class="eb-nav-submenu" data-menu="sell">
+                        <a href="#sell">Start Selling</a><a href="seller/">Seller Studio</a><a href="#my-products">My Products</a><a href="#product-history">Product History</a>
+                    </div>
+                </div>
+                <div class="eb-nav-group" data-auth-only hidden>
+                    <button type="button" class="eb-nav-parent" aria-expanded="false" data-menu-parent="account">👤 My Account⌄</button>
+                    <div class="eb-nav-submenu" data-menu="account">
+                        <a href="#account">👤 Profile</a>
+                        <a href="#orders">📦 My Orders</a>
+                        <a href="#tracking">🚚 Track Order</a>
+                        <a href="#wishlist">♡ Wishlist</a>
+                        <a href="#product-history">🕘 Product History</a>
+                        <a href="#messages">✉ Messages</a>
+                        <a href="#refunds">↩ Refunds</a>
+                        <a href="#cart">🛒 Cart</a>
+                        <a href="#location">📍 Location</a>
+                        <a href="#help">❔ Help Centre</a>
+                        <a href="#contact">☎ Contact</a>
+                        <a href="#logout" data-logout-link>↪ Logout</a>
+                    </div>
+                </div>
+                <a href="#login" data-guest-nav>Login</a><a href="#signup" data-guest-nav>Register</a>
+            </nav>
+            <div class="navactions">
+                <input class="search" id="navSearch" placeholder="Search products…" aria-label="Search products">
+                <a class="cartbtn" href="#cart" aria-label="Open shopping cart"><span class="eb-cart-icon">🛒</span><span
+            id="cartCount">0</span></a>
+            </div>
+        </div>
+    </header>
+    <main id="app"></main>
+    <footer class="footer">
+        <div class="wrap">
+            <div class="footer-grid">
+                <div>
+                    <a class="logo" href="#home" style="color:white">easy<b>buy.</b></a>
+                    <p>A friendly student marketplace to buy, sell, and reuse campus essentials. Always meet in a public campus spot and inspect items before paying.</p>
+                </div>
+                <div>
+                    <h3>Explore</h3>
+                    <div class="footerlinks">
+                        <a href="#shop">Shop products</a>
+                        <a href="#sell">Sell an item</a>
+                        <a href="#orders">My orders</a>
+                        <a href="#help">Help centre</a>
+                        <a href="#contact">Contact</a>
+                        <a href="#feedback">Feedback</a>
+                        <a href="#location">College route map</a>
+                    </div>
+                </div>
+                <div>
+                    <h3>Student safety</h3>
+                    <p>Image results are fetched from Google Books and Wikimedia Commons when available. Confirm seller identity, product condition and college meeting point before paying.</p>
+                </div>
+            </div>
+            <div class="copyright">© 2026 EasyBuy Campus Marketplace · Live public image and map APIs</div>
+        </div>
+    </footer>
+    <script>
+        document.documentElement.classList.add("eb-auth-pending");
+    </script>
+    <script src="js/products.js"></script>
+    <script src="js/image-api-config.js"></script>
+    <script src="js/image-api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/live-catalog.js"></script>
+    <script src="js/features.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/buyer-sync.js"></script>
+    <script src="js/contact-refund.js"></script>
+    <script src="js/pro-enhancements.js"></script>
+    <script src="js/navigation-upgrade.js" defer></script>
+    <script src="js/analytics-tracker.js" defer></script>
+</body>
+
+</html>
